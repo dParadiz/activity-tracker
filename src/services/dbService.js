@@ -25,12 +25,27 @@ export const loadTrackingHistory = async (name) => {
     return await db.getAllFromIndex(TRACKING_HISTORY_STORE, 'name_idx', name);
 };
 
+export const removeTrackingHistory = async (name) => {
+    const db = await getDatabase();
+    const tx = db.transaction(TRACKING_HISTORY_STORE, 'readwrite');
+    const store = tx.objectStore(TRACKING_HISTORY_STORE);
+    const index = store.index('name_idx');
+
+    let cursor = await index.openCursor(name);
+    while (cursor) {
+        await cursor.delete();
+        cursor = await cursor.continue();
+    }
+
+    await tx.done;
+};
+
 // Add a new entry to the 'history' store
 export const saveTrackingEntry = async (entry) => {
     const db = await getDatabase();
     try {
         await db.put(TRACKING_HISTORY_STORE, entry);
-    } catch (error) {
+    } catch  {
         await db.add(TRACKING_HISTORY_STORE, entry);
     }
 };
@@ -38,7 +53,7 @@ export const saveActivityGroup = async (entry) => {
     const db = await getDatabase();
     try {
         await db.put(CONFIG_STORE, entry);
-    } catch (error) {
+    } catch  {
         await db.add(CONFIG_STORE, entry);
     }
 };

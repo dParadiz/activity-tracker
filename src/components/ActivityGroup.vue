@@ -1,16 +1,17 @@
 <template>
-  <div class="bg-white shadow-md">
-    <ul class="list-none p-0">
+  <div class="">
+    <h2 class="h2 mb-4">Activity groups</h2>
+    <ul class="list-group">
       <li v-for="group in activityGroups" :key="group.name"
           @click="$emit('activity-group-selected', group)"
-          :class="{'bg-gray-200': selectedGroup.name === group.name}"
-          class="p-2.5 cursor-pointer flex justify-between items-center border-b border-gray-200 hover:bg-gray-100"
+          :class="{'active': selectedGroup.name === group.name}"
+          class="list-group-item list-group-item-action cursor-pointer d-flex justify-content-between align-items-center"
           @click.stop="selectGroup(group)"
       >
         {{ group.name }}
         <button v-if="showDelete"
                 @click.stop="deleteGroup(group.name)"
-                class="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600">
+                class="btn btn-warning btn-sm">
           Remove
         </button>
       </li>
@@ -18,7 +19,7 @@
   </div>
 </template>
 <script setup>
-import {deleteActivityGroup, loadActivityGroups, saveActivityGroup} from '@/services/dbService.js'
+import {deleteActivityGroup, loadActivityGroups, saveActivityGroup, removeTrackingHistory} from '@/services/dbService.js'
 import {onMounted} from 'vue'
 import {defineStore, storeToRefs} from 'pinia'
 
@@ -44,7 +45,8 @@ const useGroupStore = defineStore('groups', {
       this.selectedGroup = group
     },
     async deleteGroup(name) {
-      await deleteActivityGroup(name)
+      await deleteActivityGroup(name);
+      await removeTrackingHistory(name);
       this.activityGroups = this.activityGroups.filter(g => g.name !== name)
     },
     async saveGroup(group) {

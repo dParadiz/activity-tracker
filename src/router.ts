@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
-import ActivitySetupPage from './pages/ActivitySetupPage.vue';
-import ActivityTrackingPage from './pages/ActivityTrackingPage.vue';
+import ActivitySetupPage from './views/ActivitySetupPage.vue';
+import ActivityTrackingPage from './views/ActivityTrackingPage.vue';
 
 const routes: RouteRecordRaw[] = [
     {path: '/', redirect: '/track'},

@@ -1,33 +1,36 @@
 <template>
-  <div class="max-w-4xl mx-auto p-5">
-    <h2 class="text-2xl font-bold mb-4">Activity Tracking</h2>
+  <div class="container py-5">
     <ActivityGroup @activity-group-selected="selectGroup"/>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mb-5 mt-4">
+      <div v-for="activity in activities" :key="activity.id" class="col">
+        <div class="card mb-3 cursor-pointer border-success" style="max-width: 20rem;"
+             @click="incrementActivity(activity.id)"
+             :class="{'border-danger':activity.weight < 0}"
+        >
+          <div class="card-header">{{ activity.name }} ({{ activity.weight }})</div>
+          <div class="card-body">
+            <p class="card-text">Count: {{ activityCounts[activity.id] || 0 }}</p>
+          </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-      <div v-for="activity in activities" :key="activity.id" class="border border-gray-200 rounded-lg p-4 text-center">
-        <h3 class="text-lg font-semibold">{{ activity.name }}</h3>
-        <p class="text-3xl my-3">Count: {{ activityCounts[activity.id] || 0 }}</p>
-        <button @click="incrementActivity(activity.id)"
-                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Done
-        </button>
+        </div>
       </div>
     </div>
 
-    <div class="mt-8">
-      <h3 class="text-xl font-bold mb-4">History</h3>
-      <table v-if="trackingHistory.length" class="w-full border-collapse">
+    <div class="mt-5">
+      <h3 class="h3 mb-4">History</h3>
+      <table v-if="trackingHistory.length" class="table table-hover">
         <thead>
         <tr>
-          <th class="border border-gray-200 bg-gray-50 p-2 text-left">Date</th>
-          <th class="border border-gray-200 bg-gray-50 p-2 text-left">Activities</th>
-          <th class="border border-gray-200 bg-gray-50 p-2 text-left">Total Score</th>
+          <th>Date</th>
+          <th>Activities</th>
+          <th>Total Score</th>
         </tr>
         </thead>
-        <tbody>
-        <tr v-for="entry in trackingHistory" :key="entry.timestamp" v-if="trackingHistory.length">
-          <td class="border border-gray-200 p-2">{{ new Date(entry.timestamp).toISOString().split('T')[0] }}</td>
-          <td class="border border-gray-200 p-2">{{ entry.activities }}</td>
-          <td class="border border-gray-200 p-2">{{ entry.totalScore }}</td>
+        <tbody v-if="trackingHistory.length">
+        <tr v-for="entry in trackingHistory" :key="entry.timestamp" >
+          <td>{{ new Date(entry.timestamp).toISOString().split('T')[0] }}</td>
+          <td>{{ entry.activities }}</td>
+          <td>{{ entry.totalScore }}</td>
         </tr>
         </tbody>
       </table>
