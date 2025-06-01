@@ -9,6 +9,6 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export default createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/activity-tracker'),
     routes,
 });
