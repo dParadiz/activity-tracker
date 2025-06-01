@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
+import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router';
 import ActivitySetupPage from './views/ActivitySetupPage.vue';
 import ActivityTrackingPage from './views/ActivityTrackingPage.vue';
 
@@ -9,6 +9,6 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export default createRouter({
-    history: createWebHistory('/activity-tracker'),
+    history: createWebHashHistory(),
     routes,
 });
