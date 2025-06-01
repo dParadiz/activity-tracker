@@ -42,7 +42,7 @@ export default defineConfig({
                 entryFileNames: '[name]-[hash].js',
             },
         },
-        base: './', // Use relative paths
+        base: '/activity-tracker/', // Use relative paths
         outDir: 'docs/',
         emptyOutDir: true, // also necessary
     },
