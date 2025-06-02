@@ -42,11 +42,20 @@ export default defineConfig({
                 entryFileNames: '[name]-[hash].js',
             },
         },
-        base: '/activity-tracker/', // Use relative paths
+        base: process.env.VITE_APP_BASE || '/',
+
         outDir: 'docs/',
         emptyOutDir: true, // also necessary
     },
-
-
-
-})
+    pwa: {
+        name: "Activity Tracker",
+        themeColor: "#0d6efd",
+        manifestOptions: {
+            background_color: "#ffffff"
+        },
+        workboxOptions: {
+            skipWaiting: true, // Activate new service worker immediately
+            clientsClaim: true // Take control of pages immediately
+        }
+    }
+    })
