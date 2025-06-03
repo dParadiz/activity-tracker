@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode production",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix"
   },
@@ -13,8 +13,10 @@
     "@popperjs/core": "^2.11.8",
     "@vue/cli-plugin-pwa": "^5.0.8",
     "bootstrap": "^5.3.6",
+    "dotenv": "^16.5.0",
     "idb": "^8.0.3",
     "pinia": "^2.1.4",
+    "vite-plugin-pwa": "^1.0.0",
     "vue": "^3.5.13",
     "vue-router": "^4.2.5"
   },
@@ -31,6 +33,7 @@
     "sass": "^1.89.1",
     "sass-loader": "^16.0.5",
     "vite": "^6.2.4",
+    "vite-plugin-manifest": "^0.0.1",
     "vite-plugin-vue-devtools": "^7.7.2"
   }
 }
