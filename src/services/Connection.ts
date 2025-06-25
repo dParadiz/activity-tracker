@@ -13,18 +13,18 @@ export class Connection {
     dataChannel: RTCDataChannel | null;
     id: string;
     status: ConnectionStatus;
-    pearName: string;
+    peerName: string;
     remotePearName: string | null = null;
     iceCandidates: RTCIceCandidate[];
     onStatusChange: (status: ConnectionStatus) => void;
     onMessageReceived: (message: MessageEvent) => void;
 
 
-    constructor(pearName: string) {
+    constructor(peerName: string) {
         this.id = v4().toString();
         this.dataChannel = null;
         this.status = ConnectionStatus.new;
-        this.pearName = pearName;
+        this.peerName = peerName;
         this.iceCandidates = [];
 
         this.peerConnection = new RTCPeerConnection(webRTCConfig);
@@ -106,7 +106,7 @@ export class Connection {
                 offer,
                 this.iceCandidates,
                 'offer',
-                this.pearName,
+                this.peerName,
             );
 
         } catch (error) {
@@ -150,7 +150,7 @@ export class Connection {
                 this.peerConnection.addIceCandidate(candidate)
             });
 
-            this.remotePearName = offerSignal.pearName;
+            this.remotePearName = offerSignal.peerName;
             this.setStatus(ConnectionStatus.accepted);
 
         } catch (error) {
@@ -175,7 +175,7 @@ export class Connection {
                     answer,
                     this.iceCandidates,
                     'answer',
-                    this.pearName
+                    this.peerName
                 )
             });
 
@@ -208,7 +208,7 @@ export class Connection {
                 this.peerConnection.addIceCandidate(candidate);
             });
 
-            this.remotePearName = signal.pearName;
+            this.remotePearName = signal.peerName;
             this.setStatus(ConnectionStatus.connected);
 
         } catch (error) {

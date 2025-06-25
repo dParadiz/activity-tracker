@@ -6,7 +6,7 @@ export class Signal {
         public readonly session: RTCSessionDescriptionInit,
         public readonly iceCandidates: RTCIceCandidate[],
         public readonly type: string,
-        public readonly pearName: string
+        public readonly peerName: string
     ) {
 
     }
@@ -19,6 +19,6 @@ export class Signal {
 
         const data = JSON.parse(atob(content));
 
-        return new Signal( data.session, data.iceCandidates, data.type, data.pearName);
+        return new Signal( data.session, data.iceCandidates, data.type, data.peerName);
     }
 }
