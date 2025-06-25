@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <ActivityGroup @activity-group-selected="selectGroup"/>
+    <ActivityGroupList @activity-group-selected="selectGroup" :showDelete="false"/>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mb-5 mt-4">
       <div v-for="activity in activities" :key="activity.id" class="col">
         <div class="card mb-3 cursor-pointer border-success" style="max-width: 20rem;"
@@ -41,7 +41,7 @@
 <script setup>
 import {computed, onMounted, ref} from 'vue'
 import {loadTrackingHistory, saveTrackingEntry} from '@/services/dbService';
-import ActivityGroup from "@/components/ActivityGroup.vue";
+import ActivityGroupList from "@/components/ActivityGroupList.vue";
 import {defineStore, storeToRefs} from 'pinia'
 
 const trackingHistory = ref([]);

@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode production",
+    "build": "vue-tsc --noEmit && vite build --mode production",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx --fix",
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -16,14 +17,20 @@
     "dotenv": "^16.5.0",
     "idb": "^8.0.3",
     "pinia": "^2.1.4",
+    "qrcode": "^1.5.3",
     "vite-plugin-pwa": "^1.0.0",
     "vue": "^3.5.13",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@types/node": "^20.11.30",
+    "@types/uuid": "^9.0.8",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/eslint-config-standard": "^9.0.1",
+    "@vue/eslint-config-typescript": "^14.5.1",
     "eslint": "^9.28.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-n": "^17.18.0",
@@ -32,8 +39,10 @@
     "globals": "^16.2.0",
     "sass": "^1.89.1",
     "sass-loader": "^16.0.5",
+    "typescript": "^5.4.5",
     "vite": "^6.2.4",
     "vite-plugin-manifest": "^0.0.1",
-    "vite-plugin-vue-devtools": "^7.7.2"
+    "vite-plugin-vue-devtools": "^7.7.2",
+    "vue-tsc": "^2.0.7"
   }
 }

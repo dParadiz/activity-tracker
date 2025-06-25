@@ -28,7 +28,7 @@ export default defineConfig(({mode}) => {
             VitePWA({
                 registerType: 'autoUpdate',
                 manifest: {
-                    name: 'Activity Tracker',
+                    name: 'Activity.ts Tracker',
                     short_name: 'ATracker',
                     start_url: basePath,
                     display: 'standalone',

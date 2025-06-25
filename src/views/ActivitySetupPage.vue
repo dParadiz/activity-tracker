@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <ActivityGroup ref="activityGroupRef" @activity-group-selected="selectGroup" class="mb-3"/>
+    <ActivityGroupList ref="activityGroupRef" @activity-group-selected="selectGroup" class="mb-3"/>
 
     <form @submit.prevent="addActivity" class="mb-3">
       <div class="row g-4">
@@ -82,7 +82,9 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import {defineStore, storeToRefs} from 'pinia'
-import ActivityGroup from "@/components/ActivityGroup.vue";
+import ActivityGroupList from "@/components/ActivityGroupList.vue";
+import {ActivityGroup} from "@/services/ActivityGroup.js";
+import {Activity} from "@/services/Activity.js";
 
 
 const activityGroupRef = ref(null)
@@ -153,13 +155,12 @@ const saveActivities = async () => {
   const activitiesArray = Array.isArray(activities.value) ? activities.value : Object.values(activities.value);
 
 
-  const activityGroup = {
-    name: store.name,
-    activities: activitiesArray.map(activity => ({
-      name: activity.name,
-      weight: activity.weight
-    }))
-  };
+  const activityGroup = new ActivityGroup(store.name);
+
+  activitiesArray.forEach(activity => {
+    activityGroup.addActivity(new Activity(activity.name, activity.weight));
+  })
+
 
   await activityGroupRef.value.save(activityGroup);
 

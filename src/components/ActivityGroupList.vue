@@ -19,7 +19,14 @@
   </div>
 </template>
 <script setup>
-import {deleteActivityGroup, loadActivityGroups, saveActivityGroup, removeTrackingHistory} from '@/services/dbService.js'
+
+import {
+  deleteActivityGroup,
+  loadActivityGroups,
+  removeTrackingHistory,
+  saveActivityGroup
+} from '@/services/dbService'
+
 import {onMounted} from 'vue'
 import {defineStore, storeToRefs} from 'pinia'
 
@@ -39,7 +46,8 @@ const useGroupStore = defineStore('groups', {
   }),
   actions: {
     async loadGroups() {
-      this.activityGroups = await loadActivityGroups()
+      this.activityGroups = await loadActivityGroups();
+
     },
     async setSelectedGroup(group) {
       this.selectedGroup = group
@@ -64,19 +72,18 @@ const useGroupStore = defineStore('groups', {
 
 const store = useGroupStore()
 const {activityGroups, selectedGroup} = storeToRefs(store)
-
 onMounted(async () => {
-  await store.loadGroups()
+  await store.loadGroups();
 })
 
 const deleteGroup = async (name) => {
-  await store.deleteGroup(name)
+  await store.deleteGroup(name);
 }
 const selectGroup = async (group) => {
-  await store.setSelectedGroup(group)
+  await store.setSelectedGroup(group);
 }
 const save = async (activityGroup) => {
-  await store.saveGroup(activityGroup)
+  await store.saveGroup(activityGroup);
 }
 
 defineExpose({

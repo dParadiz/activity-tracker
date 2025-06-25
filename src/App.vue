@@ -20,6 +20,11 @@
                 Tracking
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :class="{ 'active': $route.path === '/share' }" to="/share">
+                Share
+              </router-link>
+            </li>
           </ul>
         </div>
       </div>
